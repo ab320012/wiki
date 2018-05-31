@@ -265,18 +265,6 @@ If the problem persists, please run Parity with `-l sync=trace` option for a whi
 
 These blocks are quite heavy on the IO and take a long time to import, especially on machines with HDD. Consider using `--warp` or switching to SSD drive.
 
-### How do I create a new account?
-
-Either by enabling the `personal` web3 API and typing
-
-```JavaScript
-web3.personal.newAccount()
-```
-
-in the Web3 console, or by using the Parity Wallet UI to create or import accounts:
-
-![Parity Wallet Create New Account](https://i.imgur.com/Lnpczaa.png)
-
 ### How can I run Parity in Docker?
 
 Docker images for Parity are available via [Docker Hub](Docker), i.e.:
@@ -340,7 +328,6 @@ killall -HUP parity
 1. Type `terminal` and hit return to open Terminal app.
 1. Type or paste `/Applications/Parity\ Ethereum.app/Contents/MacOS/parity` in the terminal, you can launch parity with [CLI flags](https://wiki.parity.io/Configuring-Parity.html#cli-options) if needed.
 
-
 ### How to generate a new hardcoded sync block for Parity light client?
 
 Parity light client allows you to set a hardcoded block from which the light client will sync to reach the top of the chain faster. Note that this hardcoded block will only be used if no prior light database is found. Here is how you can generate the needed info to create a chain specifications file:
@@ -367,18 +354,15 @@ Parity supports multiple public chain configurations:
                                    homestead, mainnet, morden, ropsten, classic, expanse,
                                    testnet, kovan or dev (default: homestead).
 
-- `--chain olympic` Runs the pre-release Ethereum Olympic testnet with network ID `0`.
-- `--chain frontier` Runs the first released Ethereum public network with ID `1`. It does not include the Homestead and DAO hardforks.
-- `--chain homestead` Runs the latest version of the Ethereum public network with ID `1`.
-- `--chain mainnet` Same as `homestead`.
-- `--chain foundation` Same as `homestead`.
-- `--chain morden` Runs the first Ethereum public testnet with ID `2`, still used as Ethereum Classic public testnet.
-- `--chain ropsten` Runs the second Ethereum public testnet with ID `3`.
-- `--chain classic` Runs the Ethereum Classic public network which opposed the DAO hardfork.
-- `--chain expanse` Runs the Expanse public network with ID `1`.
-- `--chain kovan` Runs the Proof-of-Authority public testnet with ID `42`.
-- `--chain testnet` Same as `kovan`.
-- `--chain dev` Runs a private testnet configuration, see [Private development chain](Private-development-chain.md).
+- [`mainnet`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/foundation.json) (default) main Ethereum network
+- [`kovan` or `testnet`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/kovan.json) the [fast Ethereum test network](https://github.com/kovan-testnet/config)
+- [`ropsten`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/ropsten.json) the old Ethereum test network
+- [`classic`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/classic.json) Ethereum Classic network
+- [`classic-testnet`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/morden.json) original Morden testnet and current Ethereum Classic testnet
+- [`expanse`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/expanse.json) Expanse network
+- [`dev`](https://github.com/paritytech/parity/blob/master/ethcore/res/instant_seal.json) a [Private development chain](https://wiki.parity.io/Private-development-chain.html) to be used locally, submitted transactions are inserted into blocks instantly without the need to mine
+- [`Musicoin`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/musicoin.json) Musicoin network
+- [`ellaism`](https://github.com/paritytech/parity/blob/master/ethcore/res/ethereum/ellaism.json) Ellaism network
 
 See also [Chain specification](Chain-specification.md).
 
@@ -576,22 +560,6 @@ In addition, The [EthRaspbian](https://github.com/diglos/pi-gen) project provide
 Stable releases are the most tested and will not get any new features. It is the version that we recommend to most users in a production environment.
 
 Beta releases will be augmented with new features between the different releases which often require more dedicated long-term testing and could have a couple of issues. If you run into issues with Parity, please consider [creating a ticket on Github](https://github.com/paritytech/Parity/issues/new).
-
-### How do I build the cutting-edge version of Parity?
-
-To build Parity from source simply follow the instructions in the [README](https://github.com/paritytech/parity/blob/master/README.md#build-dependencies). Once you have cloned the source directory and installed Rust, just use cargo and copy the resulting binary:
-
-```bash
-cargo build --release
-```
-
-For Ethereum key management [Ethstore](https://github.com/paritytech/ethstore) can be used. To compile it use:
-
-```bash
-cargo build --release -p ethstore --features=ethstore-cli
-```
-
-in the root Parity directory and for usage instructions: `./target/release/deps/ethstore --help`.
 
 ### How do I install Parity after building?
 
